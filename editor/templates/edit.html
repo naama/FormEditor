@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}New Form - Form Editor{% endblock %}
+
+{% block script %}
+
+{% endblock %}
+
+{% block body %}
+
+	<h1 id="title" >New Form</h1>
+
+	<button id="add_item" class="btn" onclick="">Add new item</button>
+
+	<!-- TODO このへんより上は上部に固定 -->
+
+	<form action="/editor/save">
+		<div id="questions_list" onclick="">
+			<div id="question_1" class="span9 questions_list">
+				<p id="description_1" onclick="changeDescription(1)">Write Description Here</p>
+				<textarea disabled></textarea>
+			</div>
+		</div>
+	</form>
+	<!-- TODO #title が変更されたら <title>の中身も書き換える -->
+{% endblock %}
