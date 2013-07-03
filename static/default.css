@@ -1,3 +1,7 @@
 h1#title {
 	display: inline;
 }
+
+div:nth-child(2n) {
+	background-color: #ccc;
+}

@@ -115,7 +115,6 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
 	"editor",
-	"processor",
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',

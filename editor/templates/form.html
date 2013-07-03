@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}New Form - Form Editor{% endblock %}
+
+{% block script %}
+<script type="text/typescript">
+	declare var $;
+
+	enum FormType {
+		Text,
+		List
+	}
+
+	function addQuestion() : void {
+		var question_number: number = $("div#questions_list").children().size();
+
+		$("#questions_list").append("<div id='question_" + question_number + "' class='question'> \
+\
+				<label for='qdesc_" + question_number + "'>Question: </label> \
+				<input type='text' id='qdesc_" + question_number + "' \
+					class='question_desc' placeholder='Write Description Here'> \
+				<label for='qhelptxt_" + question_number + "'>Help Text (Optional):</label> \
+				<input type='text' id='qhelptxt_" + question_number + "' \
+						class='question_desc'> \
+				<label for='formtype'>Form Type: </label> \
+				<select id='formtype' onchange='changeFormType(" + question_number + ")'> \
+					<option value='" + <number> FormType.Text + "' selected>Text</option> \
+					<option value='" + <number> FormType.List + "'>Choose from list</option> \
+				</select> \
+\
+				<div id='form_config_" + question_number + "'></div> \
+			</div>");
+
+		// Initialize form part
+		changeFormType(question_number);
+	}
+
+	function changeFormType(question_num: number) : void {
+		var formtype: number = $("#formtype option:selected").val();
+		var form_config_id: string = "#form_config_" + question_num;
+
+		$(form_config_id).html(""); // Remove old contents
+
+		if (formtype == <number>FormType.Text) {
+			$(form_config_id).append("<label for='multiline_" + question_num + "'>Multiline</label> \
+			<input id='multiline_" + question_num + "' type='checkbox' name='multiline_" + question_num + "'> \
+			<textarea id='textbox_" + question_num + "' disabled></textarea>");
+
+			$("#multiline").click(function {
+				$("#textbox_" + question_num).remove();
+			});
+		} else if (formtype == <number>FormType.List) {
+			$(form_config_id).append("<select id='liststyle'> \
+				<option value='radio'>Radio Buttons</option> \
+				<!-- <option>Pulldown Menu</option> <!-- TODO 一定数以上の選択肢数になったら、自動的にプルダウンにする? TODO 性別、国、都道府県などのテンプレートも実装 --> \
+				<option value='checkbox'>Checkboxes</option> \
+			</select> \
+ \
+			<ul id='list_" + question_num + "'></ul> \
+			<span id='add_opt_" + question_num + "' class='btn'>(+)</span>");
+
+			add_list_item("list_" + question_num, question_num, "radio");
+
+			$("#add_opt_" + question_num).click(function() {
+				add_list_item("list_" + question_num, question_num, <string> $("select#liststyle option:selected").val());
+			});
+
+			$("select#liststyle").changed(function() {
+				$("list_" + question_num + " li").each(function() {
+					var input: any = $(this).children("input");
+
+					var id: string = input.attr("id");
+					var name: string = input.attr("name");
+					var value: string = input.attr("value");
+
+					var type: string = <string>$("select#liststyle option:selected").val();
+
+					input.remove(); // Remove old input
+
+					// Add input
+					$(this).prepend("<input id='" + id + "' name='" + name + "' \
+						class='select_opt' value='" + value + "' type='" + type + "'>");
+				});
+			});
+		} else {
+			// ERROR
+			console.log("Error: Unregistered form type");
+		}
+	}
+
+	function add_list_item(list_id: string, question_num: number, type: string): void {
+		var opt_num: number = $("#" + list_id).children().size();
+		var item_num: string = question_num + "_" + opt_num;
+
+		$("#" + list_id).append("<li id='list_item_" + item_num + "'> \
+			<input id='opt_" + item_num + "' name='opt_" + question_num + "' \
+				class='select_opt' value='" + opt_num + "' type='" + type + "'> \
+			<span id='remove_opt_" + item_num + "' class='btn'>(-)</span> \
+		</li>");
+
+		$("#remove_opt_" + item_num).click(function() {
+			$("li#list_item_" + item_num).remove();
+		});
+	}
+
+	// When #add_item button is clicked
+	$("#add_item").click(function {
+		addQuestion();
+	});
+
+	// TODO if this is the new form
+	addQuestion();
+</script>
+{% endblock %}
+
+{% block body %}
+	<h1 id="title" >New Form</h1>
+
+	<button id="add_item" class="btn">Add new item</button>
+
+	<!-- TODO このへんより上は上部に固定 -->
+
+	<form action="/editor/save_form">
+		<div id="questions_list"></div>
+		<button id="save_form" class="btn">Save Form</button>
+	</form>
+	<!-- TODO #title が変更されたら <title>の中身も書き換える -->
+{% endblock %}
