@@ -16,14 +16,17 @@
 
 		$("#questions_list").append("<div id='question_" + question_number + "' class='question'> \
 \
-				<label for='qdesc_" + question_number + "'>Question: </label> \
-				<input type='text' id='qdesc_" + question_number + "' \
-					class='question_desc' placeholder='Write Description Here'> \
+				<label for='qtext_" + question_number + "'>Question: </label> \
+				<input type='text' id='qtext_" + question_number + "' name='qtext_" + question_number + "'\
+					class='qtext' placeholder='Write Description Here'> \
+\
 				<label for='qhelptxt_" + question_number + "'>Help Text (Optional):</label> \
-				<input type='text' id='qhelptxt_" + question_number + "' \
-						class='question_desc'> \
-				<label for='formtype'>Form Type: </label> \
-				<select id='formtype' onchange='changeFormType(" + question_number + ")'> \
+				<input type='text' id='qhelptxt_" + question_number + "' name='qhelptxt_" + question_number + "' \
+						class='qtext'> \
+\
+				<label for='formtype_" + question_number + "'>Form Type: </label> \
+				<select id='formtype_" + question_number + "' name='formtype_" + question_number + "' \
+					onchange='changeFormType(" + question_number + ")'> \
 					<option value='" + <number> FormType.Text + "' selected>Text</option> \
 					<option value='" + <number> FormType.List + "'>Choose from list</option> \
 				</select> \
