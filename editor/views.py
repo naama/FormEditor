@@ -7,17 +7,20 @@ def save_form(request):
 	if request.method is not "POST":
 		return HttpResponseForbidden("Access Forbidden; No data is sent via POST.")
 	
-	question_text = []
-	helptxt = []
+	question_texts = []
+	helptxts = []
+	form_types = []
 	
 	i = 0
 	while True:
-		question_text.append(request.POST["qtext_%s" % i])
-		question_text.append(request.POST["qhelptxt_%s" % i])
-		question_text.append(request.POST["formtype_%s" % i])
+		question_texts.insert(i, request.POST["qtext_%s" % i])
+		helptxts.insert(i, request.POST["qhelptxt_%s" % i])
+		form_types.insert(i, request.POST["formtype_%s" % i])
 
-
-	
+		if form_types[i] == 0: # FormType.Text
+			
+		elif form_types[i] == 1: # FormType.List
+			
 	# TODO add processes to save form in the session.
 	return redirect("/editor/process")
 	
