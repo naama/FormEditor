@@ -6,6 +6,20 @@
 <script type="text/typescript">
 	declare var $;
 
+	//
+	// Whole Page
+	//
+
+	// Prepare tab UI widget
+	$(function() {
+		$("#tabs").tabs();
+	});
+
+
+	//
+	// Form Editor
+	//
+
 	enum FormType {
 		Text,
 		List
@@ -108,7 +122,7 @@
 		addQuestion();
 	});
 
-	// TODO if this is the new form
+	// TODO when #form_editor tab shown and if there are no form item
 	addQuestion();
 </script>
 {% endblock %}
@@ -116,13 +130,25 @@
 {% block body %}
 	<h1 id="title" >New Form</h1>
 
-	<button id="add_item" class="btn">Add new item</button>
-
-	<!-- TODO このへんより上は上部に固定 -->
-
-	<form action="/editor/save_form">
-		<div id="questions_list"></div>
-		<button id="save_form" class="btn">Save Form</button>
-	</form>
 	<!-- TODO #title が変更されたら <title>の中身も書き換える -->
+
+	<div id="tabs">
+		<ul>
+			<li><a href="#form">Form</a></li>
+			<li><a href="#actions">Actions</a></li>
+		</ul>
+		<div id="form">
+			<button id="add_item" class="btn">Add new item</button>
+
+			<!-- TODO このへんより上は上部に固定 -->
+
+			<form action="/editor/save_form">
+				<div id="questions_list"></div>
+				<button id="save_form" class="btn">Save Form</button>
+			</form>
+		</div>
+		<div id="actions">
+			TODO
+		</div>
+	</div>
 {% endblock %}

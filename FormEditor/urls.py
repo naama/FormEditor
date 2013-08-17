@@ -7,8 +7,7 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = patterns("editor",
 	url(r"^$", "FormEditor.views.home", name="home"),  # TODO
-	url(r"^editor/form/new$", TemplateView.as_view(template_name="form.html")),
-	url(r"^editor/process$", TemplateView.as_view(template_name="process.html"))
+	url(r"^editor/form/new$", TemplateView.as_view(template_name="edit.html")),
 #	url(r"^editor/", include("editor.urls")),
 
 	# Uncomment the admin/doc line below to enable admin documentation:
