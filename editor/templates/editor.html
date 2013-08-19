@@ -11,10 +11,8 @@
 	//
 
 	// Prepare tab UI widget
-	$(function() {
-		$("#tabs").tabs();
-	});
 
+	$("#tabs").tabs();
 
 	//
 	// Form Editor
@@ -122,8 +120,12 @@
 		addQuestion();
 	});
 
-	// TODO when #form_editor tab shown and if there are no form item
-	addQuestion();
+	// If there are no form item in the #form tab, add one.
+	var question_number: number = $("div#questions_list").children().size();
+	if (question_number <= 0) {
+		addQuestion();
+	}
+
 </script>
 {% endblock %}
 
@@ -142,13 +144,19 @@
 
 			<!-- TODO このへんより上は上部に固定 -->
 
-			<form action="/editor/save_form">
-				<div id="questions_list"></div>
-				<button id="save_form" class="btn">Save Form</button>
-			</form>
+			<div id="questions_list"></div>
+
 		</div>
 		<div id="actions">
-			TODO
+			<!-- TODO Fix on top -->
+			<button id="add_action" class="btn">Add new action</button>
+
+			<div id="actions_list"></div>
+
 		</div>
 	</div>
+
+	<!-- TODO Fix on bottom -->
+	<button id="save_action" class="btn">Save Action</button>
+
 {% endblock %}
