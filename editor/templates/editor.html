@@ -126,6 +126,62 @@
 		addQuestion();
 	}
 
+
+
+	//
+	// Actions Editor
+	// TODO
+
+	enum ActType {
+		SendEmail,
+		CreateText
+	}
+
+	function addAction() : void {
+		var act_num: number = $("div#actions_list").children().size();
+
+		$("#actions_list").append("<div id='action_" + act_num + "' class='action'> \
+\
+				<label for='actlist_" + act_num + "'>Action Type: </label> \
+				<select id='actlist_" + act_num + "' onchange='changeActKind(" + act_num + ")'> \
+					<option value='" + <number> ActType.SendEmail + "' selected>Send Email</option> \
+					<option value='" + <number> ActType.CreateText + "'>Create Text</option> \
+				</select> \
+\
+				<div id='act_config_" + act_num + "'></div> \
+			</div>");
+
+		// Initialize form part
+		changeActKind(act_num);
+	}
+
+	function changeActKind(act_num: number) : void {
+		var acttype: number = $("#actlist_" + act_num + " option:selected").val();
+		var act_config_id: string = "#act_config_" + act_num;
+
+		$(act_config_id).html(""); // Remove old contents
+
+		if (acttype == <number>ActType.SendEmail) {
+
+		} else if (acttype == <number>ActType.CreateText) {
+
+		} else {
+			// ERROR
+			console.log("Error: Unregistered action type");
+		}
+	}
+
+	// When #add_action button is clicked
+	$("#add_action").click(function {
+		addQuestion();
+	});
+
+	// If there are no action item in the #actions tab, add one.
+	var act_num: number = $("div#actions_list").children().size();
+	if (act_num <= 0) {
+		addAction();
+	}
+
 </script>
 {% endblock %}
 
@@ -157,6 +213,6 @@
 	</div>
 
 	<!-- TODO Fix on bottom -->
-	<button id="save_action" class="btn">Save Action</button>
+	<button id="save" class="btn">Save Form</button>
 
 {% endblock %}
