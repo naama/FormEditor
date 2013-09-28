@@ -127,7 +127,6 @@
 	}
 
 
-
 	//
 	// Actions Editor
 	// TODO
@@ -162,6 +161,12 @@
 		$(act_config_id).html(""); // Remove old contents
 
 		if (acttype == <number>ActType.SendEmail) {
+			$(act_config_id).append("<h2 class='action_title'>Send an email</h2> \
+			<div class='editor'> \
+aaaaa \
+			</div>");
+
+			$(".editor").attr("contentEditable",true);
 
 		} else if (acttype == <number>ActType.CreateText) {
 
@@ -180,6 +185,15 @@
 	var act_num: number = $("div#actions_list").children().size();
 	if (act_num <= 0) {
 		addAction();
+	}
+
+
+	//
+	// General
+	//
+
+	function listQuestionsInfo() {
+
 	}
 
 </script>
